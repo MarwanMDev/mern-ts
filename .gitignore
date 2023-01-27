@@ -129,4 +129,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# OS X temporary files
+#
+# c.f. http://www.westwind.com/reference/os-x/invisibles.html
 .DS_Store
