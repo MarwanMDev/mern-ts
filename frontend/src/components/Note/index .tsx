@@ -16,7 +16,10 @@ const Note = ({ note }: Props) => {
     createdUpdatedDate = 'Created: ' + formatedDate(createdAt);
   }
   return (
-    <div className="card w-96 min-h-16 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl hover:border hover:border-white transition-all duration-100 ease-in cursor-pointer">
+    <div
+      className="card w-96 min-h-16 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
+    hover:scale-105 transition-all duration-100 ease-in cursor-pointer"
+    >
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
         <p className="whitespace-pre-line overflow-hidden">{text}</p>
