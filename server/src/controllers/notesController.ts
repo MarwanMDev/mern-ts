@@ -52,3 +52,54 @@ export const createNote: RequestHandler<
     next(error);
   }
 };
+
+interface UpdateNoteParams {
+  noteId: string;
+}
+interface UpdateNoteBody {
+  title?: string;
+  text?: string;
+}
+
+export const updateNote: RequestHandler<
+  UpdateNoteParams,
+  unknown,
+  UpdateNoteBody,
+  unknown
+> = async (req, res, next) => {
+  const { noteId } = req.params;
+  const { title, text } = req.body;
+  try {
+    if (!mongoose.isValidObjectId(noteId))
+      throw createHttpError(400, 'Invalid note id.');
+    if (!title) throw createHttpError(400, 'Title must be provided.');
+    const note = await NoteModel.findById(noteId).exec();
+
+    if (!note) throw createHttpError(404, 'Note not found.');
+
+    note.title = title;
+    note.text = text;
+
+    const uNote = await note.save();
+    res.status(200).json(uNote);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteNote: RequestHandler = async (req, res, next) => {
+  const { noteId } = req.params;
+  try {
+    if (!mongoose.isValidObjectId(noteId))
+      throw createHttpError(400, 'Invalid note id.');
+
+    const note = NoteModel.findById(noteId).exec();
+    if (!note) throw createHttpError(404, 'Note not found.');
+
+    await NoteModel.findByIdAndDelete(noteId).exec();
+
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
