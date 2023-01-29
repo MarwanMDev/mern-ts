@@ -1,6 +1,7 @@
 import { NextFunction } from 'connect';
 import 'dotenv/config';
 import express from 'express';
+import createHttpError, { isHttpError } from 'http-errors';
 import morgan from 'morgan';
 import notesRoutes from './routes/notes';
 
@@ -15,7 +16,7 @@ app.use('/api/notes', notesRoutes);
 
 // Not found routes handler
 app.use((_req, _res, next) => {
-  next(Error('Endpoint not found.'));
+  next(createHttpError(404, 'Endpoint not found.'));
 });
 
 app.use(
@@ -28,8 +29,12 @@ app.use(
   ) => {
     console.error(error);
     let errMsg = 'error occurred while fetching notes';
-    if (error instanceof Error) errMsg = error.message;
-    res.status(500).json({ error: errMsg });
+    let statusCode = 500;
+    if (isHttpError(error)) {
+      statusCode = error.status;
+      errMsg = error.message;
+    }
+    res.status(statusCode).json({ error: errMsg });
   }
 );
 
