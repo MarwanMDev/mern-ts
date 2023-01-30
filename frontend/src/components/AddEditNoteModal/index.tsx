@@ -5,21 +5,38 @@ import * as NoteAPI from '../../network/notes_api';
 import { Note } from '../../models/note';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-interface AddNoteModalProps {
+interface AddEditNoteModalProps {
+  noteToEdit?: Note;
   onNoteSaved: (note: Note) => void;
 }
 
-const AddNoteModal = ({ onNoteSaved }: AddNoteModalProps) => {
+const AddEditNoteModal = ({
+  noteToEdit,
+  onNoteSaved,
+}: AddEditNoteModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<NoteInput>();
+  } = useForm<NoteInput>({
+    defaultValues: {
+      title: noteToEdit?.title || '',
+      text: noteToEdit?.text || '',
+    },
+  });
 
   async function onSubmit(input: NoteInput) {
     try {
-      const response = await NoteAPI.createNote(input);
-      onNoteSaved(response);
+      let noteResponse: Note;
+      if (noteToEdit) {
+        noteResponse = await NoteAPI.updateNote(
+          noteToEdit._id,
+          input
+        );
+      } else {
+        noteResponse = await NoteAPI.createNote(input);
+      }
+      onNoteSaved(noteResponse);
     } catch (error) {
       console.error(error);
     }
@@ -37,11 +54,13 @@ const AddNoteModal = ({ onNoteSaved }: AddNoteModalProps) => {
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Add note</h3>
+          <h3 className="font-bold text-lg">
+            {noteToEdit ? 'Edit Note' : 'Add Note'}
+          </h3>
           <p className="py-4">
             <form
               className="flex flex-col gap-5"
-              id="addNoteForm"
+              id="addEditNoteForm"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div>
@@ -74,7 +93,7 @@ const AddNoteModal = ({ onNoteSaved }: AddNoteModalProps) => {
             </label>
             <button
               type="submit"
-              form="addNoteForm"
+              form="addEditNoteForm"
               className="btn btn-success"
               disabled={isSubmitting}
             >
@@ -87,4 +106,4 @@ const AddNoteModal = ({ onNoteSaved }: AddNoteModalProps) => {
   );
 };
 
-export default AddNoteModal;
+export default AddEditNoteModal;

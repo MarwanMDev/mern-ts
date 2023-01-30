@@ -5,10 +5,15 @@ import './index.css';
 
 interface Props {
   note: NoteModel;
+  onNoteClicked: (note: NoteModel) => void;
   onDeleteNoteClicked: (note: NoteModel) => void;
 }
 
-const Note = ({ note, onDeleteNoteClicked }: Props) => {
+const Note = ({
+  note,
+  onNoteClicked,
+  onDeleteNoteClicked,
+}: Props) => {
   const { title, text, createdAt, updatedAt } = note;
 
   let createdUpdatedDate: string;
@@ -21,6 +26,7 @@ const Note = ({ note, onDeleteNoteClicked }: Props) => {
     <div
       className="card w-96 min-h-16 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
     hover:scale-105 transition-all duration-100 ease-in cursor-pointer"
+      onClick={() => onNoteClicked(note)}
     >
       <div className="card-body">
         <div className="flex flex-row justify-between items-center">

@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import AddNoteModal from './components/AddNoteModal';
+import AddEditNoteModal from './components/AddEditNoteModal';
 import Note from './components/Note/index ';
 import { Note as NoteModel } from './models/note';
 import * as NotesAPI from './network/notes_api';
 
 function App() {
   const [notes, setNotes] = useState<NoteModel[]>([]);
+  const [noteToEdit, setNoteToEdit] = useState<NoteModel | null>(
+    null
+  );
+  const [notesLoading, setNotesLoading] = useState(false);
+  const [showNotesLoadingError, setShowNotesLoadingError] =
+    useState(false);
 
   useEffect(() => {
     fetchNotes();
@@ -14,10 +20,15 @@ function App() {
 
   async function fetchNotes() {
     try {
+      setShowNotesLoadingError(false);
+      setNotesLoading(true);
       const notes = await NotesAPI.fetchNotes();
       setNotes(notes);
     } catch (error) {
       console.error(error);
+      setShowNotesLoadingError(true);
+    } finally {
+      setNotesLoading(false);
     }
   }
 
@@ -32,24 +43,56 @@ function App() {
     }
   }
 
+  const notesGrid = (
+    <div className="flex flex-row flex-wrap justify-between items-center space-y-5">
+      {notes.map((note) => (
+        <Note
+          key={note._id}
+          note={note}
+          onDeleteNoteClicked={deleteNote}
+          onNoteClicked={setNoteToEdit}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className="App p-10">
       <div className="py-10">
-        <AddNoteModal
+        <AddEditNoteModal
           onNoteSaved={(nNote) => {
             setNotes([...notes, nNote]);
           }}
         />
       </div>
-      <div className="flex flex-row flex-wrap justify-between items-center space-y-5">
-        {notes.map((note) => (
-          <Note
-            key={note._id}
-            note={note}
-            onDeleteNoteClicked={deleteNote}
-          />
-        ))}
-      </div>
+      {/* Notes Are here */}
+      {notesLoading && <p>Loading Notes ...</p>}
+      {showNotesLoadingError && <p>Something went wrong.</p>}
+
+      {!notesLoading && !showNotesLoadingError && (
+        <>
+          {notes.length > 0 ? (
+            notesGrid
+          ) : (
+            <p>You don't have any notes yet.</p>
+          )}
+        </>
+      )}
+      {noteToEdit && (
+        <AddEditNoteModal
+          noteToEdit={noteToEdit}
+          onNoteSaved={(updatedNote) => {
+            setNotes(
+              notes.map((existingNote) =>
+                existingNote._id === updatedNote._id
+                  ? updatedNote
+                  : existingNote
+              )
+            );
+            setNoteToEdit(null);
+          }}
+        />
+      )}
     </div>
   );
 }
