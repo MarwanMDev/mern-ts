@@ -21,6 +21,17 @@ function App() {
     }
   }
 
+  async function deleteNote(note: NoteModel) {
+    try {
+      await NotesAPI.deleteNote(note._id);
+      setNotes(
+        notes.filter((existingNote) => existingNote._id !== note._id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="App p-10">
       <div className="py-10">
@@ -32,7 +43,11 @@ function App() {
       </div>
       <div className="flex flex-row flex-wrap justify-between items-center space-y-5">
         {notes.map((note) => (
-          <Note key={note._id} note={note} />
+          <Note
+            key={note._id}
+            note={note}
+            onDeleteNoteClicked={deleteNote}
+          />
         ))}
       </div>
     </div>

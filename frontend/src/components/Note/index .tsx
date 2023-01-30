@@ -1,12 +1,14 @@
 import { Note as NoteModel } from '../../models/note';
 import { formatedDate } from '../../utils/formatedDate';
+import { CiTrash } from 'react-icons/ci';
 import './index.css';
 
 interface Props {
   note: NoteModel;
+  onDeleteNoteClicked: (note: NoteModel) => void;
 }
 
-const Note = ({ note }: Props) => {
+const Note = ({ note, onDeleteNoteClicked }: Props) => {
   const { title, text, createdAt, updatedAt } = note;
 
   let createdUpdatedDate: string;
@@ -21,7 +23,16 @@ const Note = ({ note }: Props) => {
     hover:scale-105 transition-all duration-100 ease-in cursor-pointer"
     >
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
+        <div className="flex flex-row justify-between items-center">
+          <h2 className="card-title">{title}</h2>
+          <CiTrash
+            className="text-lg hover:text-red-500"
+            onClick={(e) => {
+              onDeleteNoteClicked(note);
+              e.stopPropagation();
+            }}
+          />
+        </div>
         <p className="whitespace-pre-line overflow-hidden">{text}</p>
         <div className="card-actions justify-center">
           <p className="text-xs">{createdUpdatedDate}</p>
