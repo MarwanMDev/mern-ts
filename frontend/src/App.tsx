@@ -44,7 +44,7 @@ function App() {
   }
 
   const notesGrid = (
-    <div className="flex flex-row flex-wrap justify-between items-center space-y-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       {notes.map((note) => (
         <Note
           key={note._id}

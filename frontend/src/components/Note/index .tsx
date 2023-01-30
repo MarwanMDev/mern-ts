@@ -24,7 +24,7 @@ const Note = ({
   }
   return (
     <div
-      className="card w-96 min-h-16 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
+      className="card w-96 h-96 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
     hover:scale-105 transition-all duration-100 ease-in cursor-pointer"
       onClick={() => onNoteClicked(note)}
     >
@@ -40,6 +40,7 @@ const Note = ({
           />
         </div>
         <p className="whitespace-pre-line overflow-hidden">{text}</p>
+        <div className="divider" />
         <div className="card-actions justify-center">
           <p className="text-xs">{createdUpdatedDate}</p>
         </div>
