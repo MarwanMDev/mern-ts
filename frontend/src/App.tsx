@@ -78,7 +78,7 @@ function App() {
           )}
         </>
       )}
-      {noteToEdit && (
+      {/* {noteToEdit && (
         <AddEditNoteModal
           noteToEdit={noteToEdit}
           onNoteSaved={(updatedNote) => {
@@ -92,7 +92,7 @@ function App() {
             setNoteToEdit(null);
           }}
         />
-      )}
+      )} */}
     </div>
   );
 }

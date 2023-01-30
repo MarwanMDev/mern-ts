@@ -4,6 +4,7 @@ import express from 'express';
 import createHttpError, { isHttpError } from 'http-errors';
 import morgan from 'morgan';
 import notesRoutes from './routes/notes';
+import usersRoutes from './routes/users';
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 // Notes Routes
 app.use('/api/notes', notesRoutes);
 
+// Users Routes
+app.use('/api/users', usersRoutes);
 // Not found routes handler
 app.use((_req, _res, next) => {
   next(createHttpError(404, 'Endpoint not found.'));
