@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import AddEditNoteModal from './components/AddEditNoteModal';
+import Navbar from './components/Navbar';
 import Note from './components/Note/index ';
 import { Note as NoteModel } from './models/note';
 import * as NotesAPI from './network/notes_api';
@@ -44,7 +45,7 @@ function App() {
   }
 
   const notesGrid = (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
       {notes.map((note) => (
         <Note
           key={note._id}
@@ -57,8 +58,9 @@ function App() {
   );
 
   return (
-    <div className="App p-10">
-      <div className="py-10">
+    <div className="App">
+      <Navbar />
+      <div className="flex flex-col justify-center items-center m-10">
         <AddEditNoteModal
           onNoteSaved={(nNote) => {
             setNotes([...notes, nNote]);
