@@ -17,6 +17,8 @@ function App() {
   const [showNotesLoadingError, setShowNotesLoadingError] =
     useState(false);
 
+  const [showAddEditNoteModal, setShowAddEditNoteModal] =
+    useState('close');
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -53,7 +55,10 @@ function App() {
           key={note._id}
           note={note}
           onDeleteNoteClicked={deleteNote}
-          onNoteClicked={setNoteToEdit}
+          onNoteClicked={(note) => {
+            setNoteToEdit(note);
+            setShowAddEditNoteModal('open');
+          }}
         />
       ))}
     </div>
@@ -64,6 +69,8 @@ function App() {
       <Navbar />
       <div className="flex flex-col justify-center items-center mt-10">
         <AddEditNoteModal
+          show={showAddEditNoteModal}
+          noteToEdit={noteToEdit}
           onNoteSaved={(nNote) => {
             setNotes([...notes, nNote]);
           }}

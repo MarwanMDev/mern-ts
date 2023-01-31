@@ -65,7 +65,7 @@ const Navbar = () => {
 
         <label
           className="btn btn-ghost btn-circle"
-          htmlFor="my-modal"
+          htmlFor="addEditModal"
         >
           <AiOutlinePlus className="text-success text-2xl" />
         </label>

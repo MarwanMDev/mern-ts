@@ -1,9 +1,9 @@
 import { Note as NoteModel } from '../../models/note';
 import { formatedDate } from '../../utils/formatedDate';
-import { CiTrash } from 'react-icons/ci';
+import { BsFillTrashFill } from 'react-icons/bs';
 import './index.css';
 
-interface Props {
+interface NoteProps {
   note: NoteModel;
   onNoteClicked: (note: NoteModel) => void;
   onDeleteNoteClicked: (note: NoteModel) => void;
@@ -13,7 +13,7 @@ const Note = ({
   note,
   onNoteClicked,
   onDeleteNoteClicked,
-}: Props) => {
+}: NoteProps) => {
   const { title, text, createdAt, updatedAt } = note;
 
   let createdUpdatedDate: string;
@@ -31,7 +31,7 @@ const Note = ({
       <div className="card-body">
         <div className="flex flex-row justify-between items-center">
           <h2 className="card-title">{title}</h2>
-          <CiTrash
+          <BsFillTrashFill
             className="text-lg hover:text-red-500"
             onClick={(e) => {
               onDeleteNoteClicked(note);

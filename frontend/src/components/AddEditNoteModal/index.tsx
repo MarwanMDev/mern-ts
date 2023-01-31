@@ -5,11 +5,13 @@ import * as NoteAPI from '../../network/notes_api';
 import { Note } from '../../models/note';
 
 interface AddEditNoteModalProps {
-  noteToEdit?: Note;
+  show?: string;
+  noteToEdit?: Note | null;
   onNoteSaved: (note: Note) => void;
 }
 
 const AddEditNoteModal = ({
+  show,
   noteToEdit,
   onNoteSaved,
 }: AddEditNoteModalProps) => {
@@ -43,8 +45,12 @@ const AddEditNoteModal = ({
 
   return (
     <div>
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal">
+      <input
+        type="checkbox"
+        id="addEditModal"
+        className="modal-toggle"
+      />
+      <div className={`modal modal-${show} cursor-pointer`}>
         <div className="modal-box">
           <h3 className="font-bold text-lg text-white">
             {noteToEdit ? 'Edit Note' : 'Add Note'}
@@ -59,6 +65,7 @@ const AddEditNoteModal = ({
                 <input
                   type="text"
                   placeholder="Title"
+                  value={noteToEdit ? noteToEdit.title : ''}
                   className="input w-full min-w-full text-white"
                   {...register('title', { required: true })}
                   autoFocus
@@ -73,6 +80,7 @@ const AddEditNoteModal = ({
               <div>
                 <textarea
                   className="textarea min-w-full text-white"
+                  value={noteToEdit ? noteToEdit.text : ''}
                   placeholder="Text"
                   {...register('text', { required: 'required' })}
                 ></textarea>
@@ -80,7 +88,7 @@ const AddEditNoteModal = ({
             </form>
           </p>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn">
+            <label htmlFor="addEditModal" className="btn">
               Cancel
             </label>
             <button
@@ -89,7 +97,7 @@ const AddEditNoteModal = ({
               className="btn btn-success"
               disabled={isSubmitting}
             >
-              Save
+              {noteToEdit ? 'Update' : 'Save'}
             </button>
           </div>
         </div>
