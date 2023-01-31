@@ -26,7 +26,7 @@ export async function signUp(
   return response.json();
 }
 
-interface LogInCredentials {
+export interface LogInCredentials {
   username: string;
   password: string;
 }

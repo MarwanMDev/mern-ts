@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import AddEditNoteModal from './components/AddEditNoteModal';
+import LoginModal from './components/LoginModal';
 import Navbar from './components/Navbar';
 import Note from './components/Note/index ';
 import SignUpModal from './components/SignUpModal';
@@ -109,6 +110,12 @@ function App() {
         show="close"
         onDismiss={() => {}}
         onSignUpSuccess={() => {}}
+      />
+
+      <LoginModal
+        show="close"
+        onDismiss={() => {}}
+        onLoginSuccess={() => {}}
       />
     </div>
   );
