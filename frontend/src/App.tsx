@@ -45,7 +45,7 @@ function App() {
   }
 
   const notesGrid = (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
+    <div className="px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
       {notes.map((note) => (
         <Note
           key={note._id}
@@ -60,7 +60,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div className="flex flex-col justify-center items-center m-10">
+      <div className="flex flex-col justify-center items-center mt-10">
         <AddEditNoteModal
           onNoteSaved={(nNote) => {
             setNotes([...notes, nNote]);
@@ -68,8 +68,16 @@ function App() {
         />
       </div>
       {/* Notes Are here */}
-      {notesLoading && <p>Loading Notes ...</p>}
-      {showNotesLoadingError && <p>Something went wrong.</p>}
+      {notesLoading && (
+        <div className="flex items-center justify-center">
+          <p>Loading Notes ...</p>
+        </div>
+      )}
+      {showNotesLoadingError && (
+        <div className="flex items-center justify-center">
+          <p>Something went wrong.</p>
+        </div>
+      )}
 
       {!notesLoading && !showNotesLoadingError && (
         <>

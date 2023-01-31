@@ -44,17 +44,17 @@ const AddEditNoteModal = ({
 
   return (
     <div>
-      <label
+      {/* <label
         htmlFor="my-modal"
         className="btn btn-success w-48 flex justify-center items-center text-md"
       >
         <AiOutlinePlus /> Add Note
-      </label>
+      </label> */}
 
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
+          <h3 className="font-bold text-lg text-white">
             {noteToEdit ? 'Edit Note' : 'Add Note'}
           </h3>
           <p className="py-4">
@@ -67,7 +67,7 @@ const AddEditNoteModal = ({
                 <input
                   type="text"
                   placeholder="Title"
-                  className="input w-full min-w-full"
+                  className="input w-full min-w-full text-white"
                   {...register('title', { required: true })}
                   autoFocus
                 />
@@ -80,7 +80,7 @@ const AddEditNoteModal = ({
 
               <div>
                 <textarea
-                  className="textarea min-w-full"
+                  className="textarea min-w-full text-white"
                   placeholder="Text"
                   {...register('text', { required: 'required' })}
                 ></textarea>

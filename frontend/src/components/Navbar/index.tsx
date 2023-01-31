@@ -1,8 +1,9 @@
 import React from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 shadow-xl">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -38,7 +39,12 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">Notes App</a>
+        <a
+          className="btn btn-ghost normal-case text-xl text-white"
+          href="/"
+        >
+          Notes App
+        </a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">
@@ -57,6 +63,14 @@ const Navbar = () => {
             />
           </svg>
         </button>
+
+        <label
+          htmlFor="my-modal"
+          className="btn bg-transparent hover:bg-success border-none rounded-full flex justify-center items-center text-md"
+        >
+          <AiOutlinePlus />
+        </label>
+
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg

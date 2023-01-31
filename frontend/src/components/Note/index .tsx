@@ -24,7 +24,7 @@ const Note = ({
   }
   return (
     <div
-      className="card w-96 h-96 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
+      className="card w-full h-96 bg-gradient-to-b from-slate-800 to-base-100 text-white shadow-xl
     hover:scale-105 transition-all duration-100 ease-in cursor-pointer"
       onClick={() => onNoteClicked(note)}
     >
