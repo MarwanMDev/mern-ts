@@ -3,6 +3,7 @@ import './App.css';
 import AddEditNoteModal from './components/AddEditNoteModal';
 import Navbar from './components/Navbar';
 import Note from './components/Note/index ';
+import SignUpModal from './components/SignUpModal';
 import { Note as NoteModel } from './models/note';
 import * as NotesAPI from './network/notes_api';
 
@@ -103,6 +104,12 @@ function App() {
           }}
         />
       )} */}
+
+      <SignUpModal
+        show="close"
+        onDismiss={() => {}}
+        onSignUpSuccess={() => {}}
+      />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { NoteInput } from '../../network/notes_api';
 import * as NoteAPI from '../../network/notes_api';
 import { Note } from '../../models/note';
-import { AiOutlinePlus } from 'react-icons/ai';
 
 interface AddEditNoteModalProps {
   noteToEdit?: Note;
@@ -44,13 +43,6 @@ const AddEditNoteModal = ({
 
   return (
     <div>
-      {/* <label
-        htmlFor="my-modal"
-        className="btn btn-success w-48 flex justify-center items-center text-md"
-      >
-        <AiOutlinePlus /> Add Note
-      </label> */}
-
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">

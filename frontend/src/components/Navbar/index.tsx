@@ -1,4 +1,3 @@
-import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 const Navbar = () => {
@@ -27,13 +26,13 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a>Homepage</a>
+              <a href="/">Homepage</a>
             </li>
             <li>
-              <a>Portfolio</a>
+              <a href="/">Portfolio</a>
             </li>
             <li>
-              <a>About</a>
+              <a href="/">About</a>
             </li>
           </ul>
         </div>
@@ -65,10 +64,10 @@ const Navbar = () => {
         </button>
 
         <label
+          className="btn btn-ghost btn-circle"
           htmlFor="my-modal"
-          className="btn bg-transparent hover:bg-success border-none rounded-full flex justify-center items-center text-md"
         >
-          <AiOutlinePlus />
+          <AiOutlinePlus className="text-success text-2xl" />
         </label>
 
         <button className="btn btn-ghost btn-circle">

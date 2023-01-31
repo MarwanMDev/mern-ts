@@ -6,7 +6,7 @@ export async function getLoggedUser(): Promise<User> {
   return response.json();
 }
 
-interface SignUpCredentials {
+export interface SignUpCredentials {
   username: string;
   email: string;
   password: string;
